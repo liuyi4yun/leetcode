@@ -140,7 +140,7 @@ public class TwoSum {
 
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 3, 5, 4, 6, 2};
+        int[] nums = new int[]{1, 1, 3, 5, 4, 6, 2};
         System.out.println(Arrays.toString(twoSum(nums, 9)));
         System.out.println(Arrays.toString(twoSumHash(nums, 9)));
         System.out.println(Arrays.toString(twoSumSorted(nums, 9)));
