@@ -3,18 +3,29 @@ package org.wenzeng.leetcode.array;
 import java.util.Arrays;
 
 /**
+ * Two Sum
+ * <p>
+ * 1、算法一
+ * <p>
+ * 2、
+ *
  * @author wenzeng
  * @version : TwoSum.java, v 0.1 2020年08月10日 16:29:01 wenzeng Exp $
  */
 public class TwoSum {
 
+    /**
+     * @param nums
+     * @param target 目标之
+     * @return
+     */
     public static int[] twoSum(int[] nums, int target) {
         if (nums == null || nums.length <= 1) {
             return null;
         }
-        int[] indexArray = new int[2];
-
         boolean hasTwoSum = false;
+
+        int[] indexArray = new int[2];
 
         for (int i = 0, len = nums.length; i < len; i++) {
             for (int j = i + 1; j < len; j++) {
@@ -22,6 +33,7 @@ public class TwoSum {
                     indexArray[0] = i;
                     indexArray[j] = j;
                     hasTwoSum = true;
+                    break;
                 }
             }
         }
@@ -29,7 +41,7 @@ public class TwoSum {
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 2, 3, 4, 5, 6};
-        System.out.println(Arrays.toString(twoSum(nums, 7)));
+        int[] nums = new int[]{1, 1, 3, 4, 5, 6};
+        System.out.println(Arrays.toString(twoSum(nums, 2)));
     }
 }
