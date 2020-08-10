@@ -110,13 +110,16 @@ public class TwoSum {
 
             //右方向逼近
             while (sorted_nums[start] + sorted_nums[--end] > target) {
+                System.out.println(String.format("R2L:start:%s,StartVal:%s,end:%s,EndVal:%s",
+                        start, sorted_nums[start], end, sorted_nums[end]));
             }
             if (sorted_nums[start] + sorted_nums[end] == target) {
                 break;
             }
-
             // 左方向逼近
             while (sorted_nums[++start] + sorted_nums[end] < target) {
+                System.out.println(String.format("R2L:start:%s,StartVal:%s,end:%s,EndVal:%s",
+                        start, sorted_nums[start], end, sorted_nums[end]));
             }
             if (sorted_nums[start] + sorted_nums[end] == target) {
                 break;
@@ -137,7 +140,7 @@ public class TwoSum {
 
 
     public static void main(String[] args) {
-        int[] nums = new int[]{5, 2, 2, 4, 1, 9};
+        int[] nums = new int[]{1, 3, 5, 4, 6, 2};
         System.out.println(Arrays.toString(twoSum(nums, 9)));
         System.out.println(Arrays.toString(twoSumHash(nums, 9)));
         System.out.println(Arrays.toString(twoSumSorted(nums, 9)));
