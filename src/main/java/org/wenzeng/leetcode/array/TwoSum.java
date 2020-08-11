@@ -1,188 +1,21 @@
 package org.wenzeng.leetcode.array;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Two Sum
+ * 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+ * 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。
  * <p>
- * 算法菜鸡入门
+ * 示例:
  * <p>
- * 方法1:暴力，复杂度O(n2)，会超时
+ * 给定 nums = [2, 7, 11, 15], target = 9
+ * 因为 nums[0] + nums[1] = 2 + 7 = 9
+ * 所以返回 [0, 1]
  * <p>
- * 方法2:hash，用一个哈希表，存储每个数对应的下标，复杂度 O(n) .
- * <p>
- * 方法3:先排序，然后左右夹逼，排序O(nlogn)，左右夹逼 O(n) ，最终O(nlogn)。
+ * 来源：力扣（LeetCode）
+ * 链接：https://leetcode-cn.com/problems/two-sum
+ * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
  * @author wenzeng
- * @version : TwoSum.java, v 0.1 2020年08月10日 16:29:01 wenzeng Exp $
+ * @version : TwoSum.java, v 0.1 2020年08月11日 20:44:57 wenzeng Exp $
  */
 public class TwoSum {
-
-    /**
-     * 暴力算法
-     * <p>
-     * 暴力，复杂度O(n2)
-     *
-     * @param nums   the array
-     * @param target the target value
-     * @return index value array
-     */
-    public static int[] twoSum(int[] nums, int target) {
-        if (nums == null || nums.length <= 1) {
-            return null;
-        }
-        boolean hasTwoSum = false;
-        int[] indexArray = new int[2];
-        for (int i = 0, len = nums.length; i < len; i++) {
-            for (int j = i + 1; j < len; j++) {
-                if (nums[i] + nums[j] == target) {
-                    indexArray[0] = i;
-                    indexArray[1] = j;
-                    hasTwoSum = true;
-                    break;
-                }
-            }
-        }
-        return hasTwoSum ? indexArray : null;
-    }
-
-    /**
-     * hash，用一个哈希表，存储每个数对应的下标，复杂度 O(n)，最优
-     *
-     * @param nums   the array
-     * @param target the target value
-     * @return index value array
-     */
-    public static int[] twoSumHash(int[] nums, int target) {
-        if (nums == null || nums.length <= 1) {
-            return null;
-        }
-
-        Map<Integer/*array element*/, Integer/*array index*/> eleToIdxMap = new HashMap<>(nums.length);
-
-        for (int i = 0, len = nums.length; i < len; i++) {
-            eleToIdxMap.put(nums[i], i);
-        }
-
-        boolean hasTwoSum = false;
-        int[] indexArray = new int[2];
-
-        for (int i = 0, len = nums.length; i < len; i++) {
-
-            int rest = target - nums[i];
-
-            Integer anotherIndex = eleToIdxMap.get(rest);
-            // 不为空,向后不重复
-            if (anotherIndex != null && anotherIndex != i) {
-                indexArray[0] = i;
-                indexArray[1] = anotherIndex;
-                hasTwoSum = true;
-            }
-        }
-        return hasTwoSum ? indexArray : null;
-    }
-
-
-    /**
-     * 先排序，然后左右夹逼，排序O(nlogn)，左右夹逼 O(n) ，最终O(nlogn)。
-     *
-     * @param nums   the array
-     * @param target the target value
-     * @return index value array
-     */
-    public static int[] twoSumSorted(int[] nums, int target) {
-        if (nums == null || nums.length <= 1) {
-            return null;
-        }
-        // 拷贝
-        int[] sorted_nums = Arrays.copyOf(nums, nums.length);
-
-        // 升序
-        Arrays.sort(sorted_nums);
-
-        // 左右夹逼
-        int start = 0;
-        int end = sorted_nums.length;
-
-        while (start < end) {
-
-            //右方向逼近
-            while (sorted_nums[start] + sorted_nums[--end] > target) {
-                System.out.println(String.format("R2L:start:%s,StartVal:%s,end:%s,EndVal:%s",
-                        start, sorted_nums[start], end, sorted_nums[end]));
-            }
-            if (sorted_nums[start] + sorted_nums[end] == target) {
-                break;
-            }
-            // 左方向逼近
-            while (sorted_nums[++start] + sorted_nums[end] < target) {
-                System.out.println(String.format("R2L:start:%s,StartVal:%s,end:%s,EndVal:%s",
-                        start, sorted_nums[start], end, sorted_nums[end]));
-            }
-            if (sorted_nums[start] + sorted_nums[end] == target) {
-                break;
-            }
-        }
-        boolean hasTwoSum = false;
-        int[] indexArray = new int[2];
-        int index = 0;
-        for (int i = 0, len = nums.length; i < len; i++) {
-            if (nums[i] == sorted_nums[start] || nums[i] == sorted_nums[end]) {
-                indexArray[index++] = i + 1;
-                hasTwoSum = true;
-            }
-        }
-        return hasTwoSum ? indexArray : null;
-
-    }
-
-
-    public static void main(String[] args) {
-        int[] nums = new int[]{1, 1, 3, 5, 4, 6, 2};
-        //System.out.println(Arrays.toString(twoSum(nums, 9)));
-        //System.out.println(Arrays.toString(twoSumHash(nums, 9)));
-        //System.out.println(Arrays.toString(twoSumSorted(nums, 9)));
-        System.out.println(Arrays.toString(twoSumSorted(new int[]{3, 2, 4}, 6)));
-        System.out.println(Arrays.toString(twoSum1(new int[]{3, 2, 4}, 6)));
-    }
-
-    public static int[] twoSum1(int[] nums, int target) {
-        // write code here
-        if (nums == null || nums.length <= 1) {
-            return null;
-        }
-        //
-        int[] sortedNumbers = Arrays.copyOf(nums, nums.length);
-
-        Arrays.sort(sortedNumbers);
-
-        int start = 0;
-        int end = sortedNumbers.length;
-
-
-        while (start < end) {
-            //右方向逼近，
-            while (sortedNumbers[start] + sortedNumbers[--end] > target) {
-            }
-            if (sortedNumbers[start] + sortedNumbers[end] == target) {
-                break;
-            }
-            //左方向逼近
-            while (sortedNumbers[start++] + sortedNumbers[end] < target) {
-            }
-            if (sortedNumbers[start] + sortedNumbers[end] == target) {
-                break;
-            }
-        }
-        int index = 0;
-        int[] arryas = new int[2];
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == sortedNumbers[start] || nums[i] == sortedNumbers[end]) {
-                arryas[index++] = i + 1;
-            }
-        }
-        return arryas;
-    }
 }
