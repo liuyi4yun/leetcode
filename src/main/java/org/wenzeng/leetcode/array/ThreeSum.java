@@ -50,13 +50,14 @@ public class ThreeSum {
 
         List<List<Integer>> list = new ArrayList<>();
 
+        int target = 0;
         // 2、a+b+c = 0 问题转换为 b+c = 0-a 问题，通过三个指针left,mid,right
         // 3、其中 0-a 通过left控制
         int mid, right;
-        for (int left = 0, len = nums.length; left < len && nums[left] <= 0; left++) {
+        for (int left = 0, len = nums.length; left < len && nums[left] <= target; left++) {
             mid = left + 1;
             right = len - 1;
-            int tmp = -nums[left];
+            int tmp = target - nums[left];
 
             // left防止重复
             if (left > 0 && nums[left] == nums[left - 1]) {
