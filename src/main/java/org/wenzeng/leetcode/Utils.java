@@ -1,6 +1,7 @@
 package org.wenzeng.leetcode;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * @author wenzeng
@@ -27,5 +28,9 @@ public class Utils {
 
     public static void printArray(int[] array) {
         System.out.println(Arrays.toString(array));
+    }
+
+    public static void print(Object object) {
+        System.out.println(object);
     }
 }
