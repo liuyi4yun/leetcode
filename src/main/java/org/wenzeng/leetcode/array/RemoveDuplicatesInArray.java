@@ -23,10 +23,10 @@ public class RemoveDuplicatesInArray {
      * <p>
      * eg: [1,1,2] =>[1,2,2]
      *
-     * @param nums the nums array
-     * @return remove duplicate element array
+     * @param nums the array
+     * @return the array which removed duplicate element
      */
-    public static int[] removeDuplicate(int[] nums) {
+    public static int[] removeDuplicate2(int[] nums) {
         if (nums == null || nums.length <= 2) {
             return nums;
         }
@@ -39,10 +39,28 @@ public class RemoveDuplicatesInArray {
         return nums;
     }
 
+    /**
+     * [1,1,1,2,2,3] => [1,1,2,2,3]
+     *
+     * @param nums the array
+     * @return the array which removed duplicate element
+     */
+    public static int[] removeDuplicate3(int[] nums) {
+        if (nums == null || nums.length <= 2) {
+            return nums;
+        }
+        int index = 2;
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] != nums[i - 2]) {
+                nums[index++] = nums[i];
+            }
+        }
+        return nums;
+    }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 1, 2};
-        System.out.println(Arrays.toString(removeDuplicate(Utils.sort(nums))));
+        Utils.printArray(removeDuplicate2(Utils.sort(new int[]{1, 1, 2})));
+        Utils.printArray(removeDuplicate3(Utils.sort(new int[]{1, 1, 1, 2, 2, 3})));
     }
 
 }

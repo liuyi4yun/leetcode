@@ -25,7 +25,7 @@ public class TwoSum {
      * <p>
      * 暴力，复杂度O(n2)
      *
-     * @param nums   the array nums
+     * @param nums   the array
      * @param target the target value
      * @return index value array
      */
@@ -51,7 +51,7 @@ public class TwoSum {
     /**
      * hash，用一个哈希表，存储每个数对应的下标，复杂度 O(n)，最优
      *
-     * @param nums   the array nums
+     * @param nums   the array
      * @param target the target value
      * @return index value array
      */
@@ -75,7 +75,7 @@ public class TwoSum {
 
             Integer anotherIndex = eleToIdxMap.get(rest);
             // 不为空,向后不重复
-            if (anotherIndex != null && anotherIndex > i) {
+            if (anotherIndex != null && anotherIndex != i) {
                 indexArray[0] = i;
                 indexArray[1] = anotherIndex;
                 hasTwoSum = true;
@@ -88,7 +88,7 @@ public class TwoSum {
     /**
      * 先排序，然后左右夹逼，排序O(nlogn)，左右夹逼 O(n) ，最终O(nlogn)。
      *
-     * @param nums   the array nums
+     * @param nums   the array
      * @param target the target value
      * @return index value array
      */
@@ -130,7 +130,7 @@ public class TwoSum {
         int index = 0;
         for (int i = 0, len = nums.length; i < len; i++) {
             if (nums[i] == sorted_nums[start] || nums[i] == sorted_nums[end]) {
-                indexArray[index++] = i;
+                indexArray[index++] = i + 1;
                 hasTwoSum = true;
             }
         }
@@ -141,8 +141,48 @@ public class TwoSum {
 
     public static void main(String[] args) {
         int[] nums = new int[]{1, 1, 3, 5, 4, 6, 2};
-        System.out.println(Arrays.toString(twoSum(nums, 9)));
-        System.out.println(Arrays.toString(twoSumHash(nums, 9)));
-        System.out.println(Arrays.toString(twoSumSorted(nums, 9)));
+        //System.out.println(Arrays.toString(twoSum(nums, 9)));
+        //System.out.println(Arrays.toString(twoSumHash(nums, 9)));
+        //System.out.println(Arrays.toString(twoSumSorted(nums, 9)));
+        System.out.println(Arrays.toString(twoSumSorted(new int[]{3, 2, 4}, 6)));
+        System.out.println(Arrays.toString(twoSum1(new int[]{3, 2, 4}, 6)));
+    }
+
+    public static int[] twoSum1(int[] nums, int target) {
+        // write code here
+        if (nums == null || nums.length <= 1) {
+            return null;
+        }
+        //
+        int[] sortedNumbers = Arrays.copyOf(nums, nums.length);
+
+        Arrays.sort(sortedNumbers);
+
+        int start = 0;
+        int end = sortedNumbers.length;
+
+
+        while (start < end) {
+            //右方向逼近，
+            while (sortedNumbers[start] + sortedNumbers[--end] > target) {
+            }
+            if (sortedNumbers[start] + sortedNumbers[end] == target) {
+                break;
+            }
+            //左方向逼近
+            while (sortedNumbers[start++] + sortedNumbers[end] < target) {
+            }
+            if (sortedNumbers[start] + sortedNumbers[end] == target) {
+                break;
+            }
+        }
+        int index = 0;
+        int[] arryas = new int[2];
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == sortedNumbers[start] || nums[i] == sortedNumbers[end]) {
+                arryas[index++] = i + 1;
+            }
+        }
+        return arryas;
     }
 }
