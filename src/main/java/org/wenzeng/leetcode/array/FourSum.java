@@ -1,6 +1,9 @@
 package org.wenzeng.leetcode.array;
 
+import org.wenzeng.leetcode.Utils;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,12 +32,54 @@ import java.util.List;
  */
 public class FourSum {
 
+    /**
+     * 4SUM问题转化为3SUM问题
+     */
     public static List<List<Integer>> fourSum(int[] nums, int target) {
         if (nums == null || nums.length < 4) {
             return null;
         }
+        Arrays.sort(nums);
+
         List<List<Integer>> ret = new ArrayList<>();
 
+        // a + b + c + d = target => b + c + d = target -  a
+        int mid, right;
+        for (int i = 0, len = nums.length; i < len - 3; i++) {
+            int target_i = target - nums[i];
+            //过滤重复
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            for (int left = i + 1; left < len - 2; left++) {
+                mid = left + 1;
+                right = len - 1;
+                int tmp = target_i - nums[left];
+                while (mid < right) {
+
+                    if (nums[mid] + nums[right] == tmp) {
+                        ret.add(Arrays.asList(nums[i], nums[left], nums[mid], nums[right]));
+
+                        while (mid < right && nums[mid] == nums[mid + 1]) {
+                            mid++;
+                        }
+                        while (mid < right && nums[right] == nums[right - 1]) {
+                            right--;
+                        }
+                    }
+                    if (nums[mid] + nums[right] < tmp) {
+                        mid++;
+                    } else {
+                        right--;
+                    }
+                }
+            }
+        }
         return ret;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 0, -1, 0, -2, 2};
+        Utils.print(fourSum(nums, 0));
     }
 }
