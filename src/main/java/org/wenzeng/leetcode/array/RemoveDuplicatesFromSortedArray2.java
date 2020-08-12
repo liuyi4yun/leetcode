@@ -34,8 +34,13 @@ import java.util.Arrays;
 public class RemoveDuplicatesFromSortedArray2 {
 
     public static int removeDuplicates(int[] nums) {
-
-        return 0;
+        int new_len = 2;
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] != nums[new_len - 2]) {
+                nums[new_len++] = nums[i];
+            }
+        }
+        return new_len;
     }
 
     public static void main(String[] args) {
