@@ -51,8 +51,36 @@ public class RemoveElement {
         return index;
     }
 
+    /**
+     * 通过左右指针移动
+     * <p>
+     * 0,1,2,2,3,0,4,2
+     */
+    public static int removeElement2(int[] nums, int val) {
+
+        int left = 0, right = nums.length - 1;
+
+        while (left < right) {
+            if (nums[left] == val && nums[right] != val) {
+                nums[left] = nums[right];
+                nums[right] = val;
+            }
+            if (nums[left] != val) {
+                left++;
+            }
+            if (nums[right] == val) {
+                right--;
+            }
+        }
+        Utils.printArray(nums);
+        return right + 1;
+    }
+
     public static void main(String[] args) {
         Utils.print(removeElement(new int[]{3, 2, 2, 3}, 3));
         Utils.print(removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
+
+        Utils.print(removeElement2(new int[]{3, 2, 2, 3}, 3));
+        Utils.print(removeElement2(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
     }
 }
