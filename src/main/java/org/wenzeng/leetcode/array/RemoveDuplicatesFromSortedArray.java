@@ -36,13 +36,14 @@ import javax.rmi.CORBA.Util;
 public class RemoveDuplicatesFromSortedArray {
 
     public static int removeDuplicates(int[] nums) {
-        int new_len = 1;
+        int newLen = 1;
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != nums[i - 1]) {
-                nums[new_len++] = nums[i];
+            if (nums[i] != nums[newLen - 1]) {
+                nums[newLen++] = nums[i];
             }
         }
-        return new_len;
+        Utils.printArray(nums);
+        return newLen;
     }
 
     public static void main(String[] args) {

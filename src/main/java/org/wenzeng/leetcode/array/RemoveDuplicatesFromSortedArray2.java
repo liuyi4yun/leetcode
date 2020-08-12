@@ -40,6 +40,7 @@ public class RemoveDuplicatesFromSortedArray2 {
                 nums[new_len++] = nums[i];
             }
         }
+        Utils.printArray(nums);
         return new_len;
     }
 
